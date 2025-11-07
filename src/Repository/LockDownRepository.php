@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\LockDown;
+use App\Enum\LockDownStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,6 +21,27 @@ class LockDownRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, LockDown::class);
     }
+
+    public function findMostRecent(): ?LockDown
+    {
+        return $this->createQueryBuilder('lock_down')
+            ->orderBy('lock_down.createdAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function isInLockDown(): bool
+    {
+        $lastLockDown = $this->findMostRecent();
+
+        if (!$lastLockDown) {
+            return false;
+        }
+
+        return $lastLockDown->getStatus() !== LockDownStatus::ENDED;
+    }
+
 
 //    /**
 //     * @return LockDown[] Returns an array of LockDown objects

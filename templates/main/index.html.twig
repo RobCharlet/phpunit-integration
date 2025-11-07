@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% if isLockDown %}
+    {{ include('main/_lockDownAlert.html.twig') }}
+{% endif %}
 <div class="container volcano mt-4" style="flex-grow: 1;">
     <h1 class="mt-5">Dinotopia Status</h1>
     <div class="dino-stats-container mt-2 p-3">
