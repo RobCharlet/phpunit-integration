@@ -109,6 +109,48 @@ The project demonstrates different testing approaches:
 - **Symfony Test Components**: ArrayAdapter for cache, MockHttpClient for HTTP requests
 - **Named Arguments**: PHP 8.0+ named arguments used in constructors and test methods
 
+## Git Workflow Rules
+
+### Branch Management
+
+- **CRITICAL: NEVER commit directly to `main` branch**
+- Always create a feature/fix/chore branch for any changes
+- Branch naming conventions:
+  - `feature/description` - for new features
+  - `fix/description` - for bug fixes
+  - `chore/description` - for maintenance tasks (dependencies, config, etc.)
+- Example: `fix/github-actions-sqlite-path`, `feature/add-dinosaur-feeding`
+
+### Pull Request Workflow
+
+1. Create a branch for your changes
+2. Make commits on the branch
+3. Push the branch to GitHub
+4. Create a Pull Request to `main`
+5. Wait for CI checks to pass
+6. Merge the PR (squash merge preferred)
+
+### Required for All Changes
+
+- All changes MUST go through Pull Requests
+- PRs MUST have passing CI checks before merge
+- Use descriptive PR titles and detailed descriptions
+- Include test plan in PR description
+
+### Commit Message Format
+
+- Use clear, descriptive commit messages
+- Start with a verb in imperative mood (Add, Fix, Update, Remove)
+- Include AI co-author attribution: `Co-Authored-By: Claude <noreply@anthropic.com>`
+- Add emoji prefix when using Claude Code: `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
+
+### Branch Protection
+
+- The `main` branch is protected:
+  - No force pushes allowed
+  - No direct commits allowed
+  - Requires pull request reviews (when configured)
+
 ## Important Notes
 
 - **PHP Version**: Project uses PHP 8.1 (specified in `.php-version` file)
