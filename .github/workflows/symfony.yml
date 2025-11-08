@@ -43,5 +43,5 @@ jobs:
         touch data/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DATABASE_URL: "sqlite:///${{ github.workspace }}/data/database.sqlite"
+        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
       run: vendor/bin/phpunit
