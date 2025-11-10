@@ -23,3 +23,7 @@
 .DS_Store
 .idea/
 ###< OSX ###
+
+###> claude-code ###
+.claude/settings.local.json
+###< claude-code ###
