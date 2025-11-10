@@ -75,9 +75,4 @@ class GithubService
 
         return $health ?? HealthStatus::HEALTHY;
     }
-
-    public function dinoEscaped(): void
-    {
-        // TODO: create a LockDown entity and save it to the database
-    }
 }

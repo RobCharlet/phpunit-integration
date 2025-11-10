@@ -4,15 +4,18 @@ namespace App\Service;
 
 use App\Entity\LockDown;
 use App\Enum\LockDownStatus;
+use App\Message\LockDownStartedNotification;
 use App\Repository\LockDownRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class LockDownHelper
 {
     public function __construct(
         private LockDownRepository $lockDownRepository,
         private EntityManagerInterface $entityManager,
-        private GithubService $githubService
+        private GithubService $githubService,
+        private MessageBusInterface $messageBus,
     )
     {
     }
@@ -29,5 +32,16 @@ class LockDownHelper
         $this->entityManager->flush();
 
         $this->githubService->clearLockDownAlerts();
+    }
+
+    public function dinoEscaped(): void
+    {
+        $lockDown = new LockDown();
+        $lockDown->setStatus(LockDownStatus::ACTIVE);
+        $lockDown->setReason('Dino escaped... NOT good...');
+        $this->entityManager->persist($lockDown);
+        $this->entityManager->flush();
+
+        $this->messageBus->dispatch(new LockDownStartedNotification());
     }
 }
