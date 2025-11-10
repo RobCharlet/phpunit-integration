@@ -44,6 +44,12 @@ class GithubService
         return $health;
     }
 
+    public function clearLockDownAlerts(): void
+    {
+        $this->logger->info('Cleaning lock down alerts on GitHub...');
+        // pretend like this makes an API call to GitHub
+    }
+
     private function getDinoStatusFromLabels(array $labels): HealthStatus
     {
         $health = null;
@@ -68,5 +74,10 @@ class GithubService
         }
 
         return $health ?? HealthStatus::HEALTHY;
+    }
+
+    public function dinoEscaped(): void
+    {
+        // TODO: create a LockDown entity and save it to the database
     }
 }
